@@ -26,8 +26,7 @@ mvn test
 
 ## Authors
 
-**[Islam Murtazaev](https://github.com/IslaMurtazaev)** 
-**[Danyshman Azamatov](https://github.com/Danyshman)**
-**[Aidar Zamirbekov](https://github.com/AIDARXAN)**
-
-
+* [Islam Murtazaev](https://github.com/IslaMurtazaev)
+* [Danyshman Azamatov](https://github.com/Danyshman)
+* [Aidar Zamirbekov](https://github.com/AIDARXAN) 
+* [Israil Zarbaliev](https://github.com/israil99)
