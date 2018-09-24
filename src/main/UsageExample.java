@@ -7,12 +7,19 @@ public class UsageExample {
     public static void main(String[] args) {
 
         Person harry = new Person(1, "Harry", "Potter", true);
-        Person islam = new Person(2, "Islam", "Murtazaev", true);
+        Person danyshman = new Person(2, "Danyshman", "Azamatov", true);
         Person hermione = new Person(3, "Hermione", "Granger", true);
-       // DB_Manager.save(harry);
-        //DB_Manager.save(hermione);
-        new DB_Manager().save(hermione);
-        new DB_Manager().delete(3);
-        new DB_Manager().save(islam);
+        Person islam = new Person(4, "Islam", "Murtazaev", true);
+
+        DB_Manager db_manager = new DB_Manager();
+
+//        db_manager.save(islam);
+//        db_manager.save(harry);
+//        db_manager.save(danyshman);
+//        db_manager.save(hermione);
+
+        db_manager.delete(1,harry);
+
+
     }
 }
