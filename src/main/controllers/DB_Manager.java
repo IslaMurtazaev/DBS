@@ -6,13 +6,15 @@ import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import main.interfaces.Database;
+import static main.controllers.HelperFunctions.getClassName;
+import static main.controllers.HelperFunctions.saveTo;
 
 public class DB_Manager implements Database {
     @Override
     public void save(Object object) {
-        String className = HelperFunctions.getClassName(object);
-        HelperFunctions.saveTo(className, object);
-        System.out.println("Your " + className + " object was successfully saved to " + className + ".json");
+        String className = getClassName(object);
+        saveTo(className, object);
+        System.out.println("Your "+ className +" object was successfully saved to "+ className +".json");
     }
 
     @Override
@@ -23,7 +25,10 @@ public class DB_Manager implements Database {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id,Object object) {
+        List<String> updatedJson = HelperFunctions.deleteJsonObject(id,object);
+        HelperFunctions.deleteFile(object);
+        HelperFunctions.saveUpdatedJson(updatedJson,object);
 
     }
 
@@ -35,4 +40,3 @@ public class DB_Manager implements Database {
         System.out.println("Object was successfully updated!");
     }
 }
-

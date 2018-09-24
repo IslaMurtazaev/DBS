@@ -31,10 +31,13 @@
       <artifactId>jackson-databind</artifactId>
       <version>2.9.4</version>
     </dependency>
+<<<<<<< HEAD
+=======
       <dependency>
           <groupId>com.mycompany.app</groupId>
           <artifactId>my-app</artifactId>
           <version>1.0-SNAPSHOT</version>
       </dependency>
+>>>>>>> 462f02c09a7dd04f446fc258ddc494771306b48c
   </dependencies>
 </project>

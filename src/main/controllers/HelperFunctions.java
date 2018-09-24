@@ -152,5 +152,17 @@ public class HelperFunctions {
         return target;
     }
 
+    public static List<String> deleteJsonObject(long id,Object object){
+        String className = HelperFunctions.getClassName(object);
+        List<String> jsonObjects = HelperFunctions.getObjects(className);
+
+        for (int i = 0; i < jsonObjects.size(); i++) {
+            if (jsonObjects.get(i).substring(11,12).equals(Long.toString(id))) {
+                jsonObjects.remove(i);
+                break;
+            }
+        }
+        return jsonObjects;
+    }
 
 }

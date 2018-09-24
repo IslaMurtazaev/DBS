@@ -5,7 +5,7 @@ public interface Database {
 
     void retrieve(long id, Object object );
 
-    void delete(long id);
+    void delete(long id,Object object);
 
     void update(long id, Object object);
 }

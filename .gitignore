@@ -1,5 +1,6 @@
 
 *.iml
 *.txt
+*.json
 /out
 .idea
