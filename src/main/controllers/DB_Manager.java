@@ -1,7 +1,10 @@
 package main.controllers;
 
+import java.io.File;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import main.interfaces.Database;
 
 public class DB_Manager implements Database {
@@ -13,8 +16,10 @@ public class DB_Manager implements Database {
     }
 
     @Override
-    public Object retrive(long id) {
-        return null;
+    public void retrieve(long id, Object object) {
+
+        System.out.println(HelperFunctions.retrieveJsonObject(id, object));
+
     }
 
     @Override

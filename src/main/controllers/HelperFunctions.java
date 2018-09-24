@@ -9,20 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class HelperFunctions {
-
-
-    public static void deleteFile(Object object) {
-        String fileName = getClassName(object) + ".json";
-        try {
-            File file = new File(fileName);
-            file.delete();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-
     public static String getClassName(Object object) {
         String[] reference = (object.getClass() + "").split("\\.");
         String className = reference[reference.length - 1];
@@ -75,7 +63,7 @@ public class HelperFunctions {
                 fileContent.append(in.nextLine() + "\n");
             }
 
-        }catch (IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
@@ -83,38 +71,25 @@ public class HelperFunctions {
         return jsonObjects;
     }
 
-    public static List<String> splitJson(String text){
+    public static List<String> splitJson(String text) {
         List<String> jsonObjects = new ArrayList();
         int open = 0;
         int close = 0;
-        for(int i = 0; i<text.length();i++){
-            if(text.charAt(i) == '{'){
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == '{') {
                 open = i;
             }
-            if(text.charAt(i) == '}'){
+            if (text.charAt(i) == '}') {
                 close = i;
-                jsonObjects.add(text.substring(open, close+1));
+                jsonObjects.add(text.substring(open, close + 1));
 
-            }
-        }return jsonObjects;
-    }
-
-
-    public static List<String> updateJsonObject(long id, Object object) {
-        String className = getClassName(object);
-        List<String> jsonObjects = getObjects(className);
-        for (int i = 0; i < jsonObjects.size(); i++) {
-            if (jsonObjects.get(i).substring(11,12).equals(Long.toString(id))) {
-                jsonObjects.set(i, convertToJson(object));
-                break;
             }
         }
-
         return jsonObjects;
     }
 
 
-    public static void saveUpdatedJson(List<String> jsonObjects, Object object){
+    public static void saveUpdatedJson(List<String> jsonObjects, Object object) {
         String filename = getClassName(object) + ".json";
 
         for (int i = 0; i < jsonObjects.size(); i++) {
@@ -130,4 +105,52 @@ public class HelperFunctions {
             }
         }
     }
+
+    public static List<String> updateJsonObject(long id, Object object) {
+        String className = getClassName(object);
+        List<String> jsonObjects = getObjects(className);
+        for (int i = 0; i < jsonObjects.size(); i++) {
+            if (jsonObjects.get(i).substring(11, 12).equals(Long.toString(id))) {
+                jsonObjects.set(i, convertToJson(object));
+                break;
+            }
+        }
+
+        return jsonObjects;
+    }
+
+    public static void deleteFile(Object object) {
+        String fileName = getClassName(object) + ".json";
+        try {
+            File file = new File(fileName);
+            file.delete();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static Object retrieveJsonObject(long id, Object object) {
+        ObjectMapper mapper = new ObjectMapper();
+        String className = getClassName(object);
+        List<String> jsonObjects = getObjects(className);
+        String target = getJsonById(id, jsonObjects);
+        try {
+            return mapper.readValue(target, object.getClass());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonObjects;
+    }
+
+    public static String getJsonById(long id, List<String> jsonObjects) {
+        String target = "";
+        for (int i = 0; i < jsonObjects.size(); i++) {
+            if (jsonObjects.get(i).substring(11, 12).equals(Long.toString(id))) {
+                target = jsonObjects.get(i);
+            }
+        }
+        return target;
+    }
+
+
 }

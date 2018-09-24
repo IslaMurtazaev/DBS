@@ -1,11 +1,11 @@
 package main.mocks;
 
 public class Person {
+    public Person(){}
     private long id;
     private String firstName;
     private String lastName;
     private boolean status;
-
     public Person(long id, String firstName, String lastName, boolean status) {
         this.id = id;
         this.firstName = firstName;
@@ -22,7 +22,7 @@ public class Person {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -30,7 +30,7 @@ public class Person {
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName) {
@@ -43,5 +43,15 @@ public class Person {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

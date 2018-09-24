@@ -3,7 +3,7 @@ package main.interfaces;
 public interface Database {
     void save(Object object);
 
-    Object retrive(long id);
+    void retrieve(long id, Object object );
 
     void delete(long id);
 
