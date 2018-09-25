@@ -14,14 +14,14 @@ public class DB_Manager implements Database {
     public void save(Object object) {
         String className = getClassName(object);
         saveTo(className, object);
-        System.out.println("Your "+ className +" object was successfully saved to "+ className +".json");
+        System.out.println("Object was successfully saved to "+ className +".json");
     }
 
     @Override
-    public void retrieve(long id, Object object) {
-
-        System.out.println(HelperFunctions.retrieveJsonObject(id, object));
-
+    public Object retrieve(long id, Object object) {
+        Object retrivedObject =  HelperFunctions.retrieveJsonObject(id, object);
+        System.out.println("Object was successfully retrived!");
+        return retrivedObject;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DB_Manager implements Database {
         List<String> updatedJson = HelperFunctions.deleteJsonObject(id,object);
         HelperFunctions.deleteFile(object);
         HelperFunctions.saveUpdatedJson(updatedJson,object);
-
+        System.out.println("Object was successfully deleted!");
     }
 
     @Override
