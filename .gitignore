@@ -1,6 +1,6 @@
 
 *.iml
-*.txt
 *.json
 /out
+/target
 .idea
