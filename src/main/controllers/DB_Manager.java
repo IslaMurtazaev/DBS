@@ -1,10 +1,7 @@
 package main.controllers;
 
-import java.io.File;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import main.interfaces.Database;
 import static main.controllers.HelperFunctions.getClassName;
 import static main.controllers.HelperFunctions.saveTo;
@@ -19,13 +16,13 @@ public class DB_Manager implements Database {
 
     @Override
     public Object retrieve(long id, Object object) {
-        Object retrivedObject =  HelperFunctions.retrieveJsonObject(id, object);
+        Object retrievedObject =  HelperFunctions.retrieveJsonObject(id, object);
         System.out.println("Object was successfully retrived!");
-        return retrivedObject;
+        return retrievedObject;
     }
 
     @Override
-    public void delete(long id,Object object) {
+    public void delete(long id, Object object) {
         List<String> updatedJson = HelperFunctions.deleteJsonObject(id,object);
         HelperFunctions.deleteFile(object);
         HelperFunctions.saveUpdatedJson(updatedJson,object);

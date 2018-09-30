@@ -7,24 +7,21 @@ public class UsageExample {
     public static void main(String[] args) {
 
         Person harry = new Person(1, "Harry", "Potter", true);
-        Person danyshman = new Person(2, "Danyshman", "Azamatov", true);
+        Person ron = new Person(2, "Ronald", "Weasley", true);
         Person hermione = new Person(3, "Hermione", "Granger", true);
-
-        Person islam = new Person(4, "Islam", "Murtazaev", true);
 
         DB_Manager db_manager = new DB_Manager();
 
-//        db_manager.save(islam);
-//        db_manager.save(harry);
-//        db_manager.save(danyshman);
-//        db_manager.save(hermione);
+        db_manager.save(harry);
+        db_manager.save(ron);
+        db_manager.save(hermione);
 
-        db_manager.delete(1,harry);
+        Person theBoyWhoLived = (Person) db_manager.retrieve(1, new Person());
+        System.out.println("The one who survived the killing curse "+ theBoyWhoLived);
 
-//        new DB_Manager().delete(danyshman.getId(), danyshman);
-        new DB_Manager().retrieve(3, harry);
-        System.out.println(harry.getId());
-        System.out.println(hermione.getFirstName());
+        db_manager.delete(1, new Person());
 
+        hermione.setLastName("Weasley");
+        db_manager.update(3, hermione);
     }
 }
