@@ -1,24 +1,19 @@
 package main.mocks;
 
-public class Person {
-    public Person(){}
-    private long id;
+import main.interfaces.Savable;
+
+public class Person extends Savable {
     private String firstName;
     private String lastName;
     private boolean status;
+
+    public Person(){}
+
     public Person(long id, String firstName, String lastName, boolean status) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.status = status;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -37,7 +32,7 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

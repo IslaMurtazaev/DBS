@@ -13,6 +13,20 @@ Inside of project's root folder type:
 mvn install
 ```
 
+## Usage
+
+We recommend you to follow these steps:
+
+* Look up ``UsageExample.java`` in main folder 
+(we use ``Person.java`` as mock to demonstrate the usage)
+
+* Run ``UsageExample.java`` and find ``Person.json`` in your project folder
+(By default DBS saves your instances in JSON file with the same name as their class) 
+
+* Extend ``Savable.java`` in all classes which instances you want to be serialized
+
+* Enjoy using ``DB_Manager.java`` ;) 
+
 ## Running the tests
 
 ```

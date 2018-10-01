@@ -3,6 +3,7 @@ package main.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import main.interfaces.Savable;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,18 +12,10 @@ import java.util.Scanner;
 
 
 public class HelperFunctions {
-    public static String getClassName(Object object) {
-        String[] reference = (object.getClass() + "").split("\\.");
-        String className = reference[reference.length - 1];
-        return className;
-    }
-
-
-    public static void saveTo(String name, Object objectToSave) {
+    public static void saveTo(String name, Savable objectToSave) {
         String filename = name + ".json";
         String json = convertToJson(objectToSave);
 
-        // Save JSON string to file
         try (
                 FileWriter fw = new FileWriter(filename, true);
                 BufferedWriter bw = new BufferedWriter(fw);
@@ -35,7 +28,7 @@ public class HelperFunctions {
     }
 
 
-    public static String convertToJson(Object objectToSave) {
+    public static String convertToJson(Savable objectToSave) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String json = "";
@@ -89,8 +82,8 @@ public class HelperFunctions {
     }
 
 
-    public static void saveUpdatedJson(List<String> jsonObjects, Object object) {
-        String filename = getClassName(object) + ".json";
+    public static void saveUpdatedJson(List<String> jsonObjects, Savable object) {
+        String filename = object.recieveFilename() + ".json";
 
         for (int i = 0; i < jsonObjects.size(); i++) {
             // Create new JSON file
@@ -106,8 +99,8 @@ public class HelperFunctions {
         }
     }
 
-    public static List<String> updateJsonObject(long id, Object object) {
-        String className = getClassName(object);
+    public static List<String> updateJsonObject(long id, Savable object) {
+        String className = object.recieveFilename();
         List<String> jsonObjects = getObjects(className);
         for (int i = 0; i < jsonObjects.size(); i++) {
             if (jsonObjects.get(i).substring(11, 12).equals(Long.toString(id))) {
@@ -119,8 +112,8 @@ public class HelperFunctions {
         return jsonObjects;
     }
 
-    public static void deleteFile(Object object) {
-        String fileName = getClassName(object) + ".json";
+    public static void deleteFile(Savable object) {
+        String fileName = object.recieveFilename() + ".json";
         try {
             File file = new File(fileName);
             file.delete();
@@ -129,9 +122,9 @@ public class HelperFunctions {
         }
     }
 
-    public static Object retrieveJsonObject(long id, Object object) {
+    public static Object retrieveJsonObject(long id, Savable object) {
         ObjectMapper mapper = new ObjectMapper();
-        String className = getClassName(object);
+        String className = object.recieveFilename();
         List<String> jsonObjects = getObjects(className);
         String target = getJsonById(id, jsonObjects);
         try {
@@ -152,8 +145,8 @@ public class HelperFunctions {
         return target;
     }
 
-    public static List<String> deleteJsonObject(long id,Object object){
-        String className = HelperFunctions.getClassName(object);
+    public static List<String> deleteJsonObject(long id, Savable object){
+        String className = object.recieveFilename();
         List<String> jsonObjects = HelperFunctions.getObjects(className);
 
         for (int i = 0; i < jsonObjects.size(); i++) {
