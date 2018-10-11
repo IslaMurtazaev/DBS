@@ -5,13 +5,13 @@ import java.util.List;
 import main.interfaces.Database;
 import main.interfaces.Savable;
 
-import static main.controllers.HelperFunctions.saveTo;
+import static main.controllers.HelperFunctions.saveToJsonFile;
 
 public class DB_Manager implements Database {
     @Override
     public void save(Savable object) {
         String className = object.recieveFilename();
-        saveTo(className, object);
+        saveToJsonFile(object, className);
         System.out.println("Object was successfully saved to "+ className +".json");
     }
 

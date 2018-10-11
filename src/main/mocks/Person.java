@@ -9,8 +9,7 @@ public class Person extends Savable {
 
     public Person(){}
 
-    public Person(long id, String firstName, String lastName, boolean status) {
-        this.id = id;
+    public Person(String firstName, String lastName, boolean status) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.status = status;
