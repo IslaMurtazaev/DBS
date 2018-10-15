@@ -61,7 +61,7 @@ public class HelperFunctions {
     }
 
 
-    private static List<String> getObjects(String name) {
+    public static List<String> getObjects(String name) {
         String filename = name + ".json";
         StringBuilder fileContent = new StringBuilder();
 
@@ -153,7 +153,7 @@ public class HelperFunctions {
     }
 
 
-    private static Object deserialize(String json, Savable object) {
+    public static Object deserialize(String json, Savable object) {
         ObjectMapper mapper = new ObjectMapper();
 
         Object deserializedObject = null;
@@ -168,7 +168,7 @@ public class HelperFunctions {
     }
 
 
-    private static String getJsonById(long id, List<String> jsonObjects) {
+    public static String getJsonById(long id, List<String> jsonObjects) {
         String target = "";
         for (int i = 0; i < jsonObjects.size(); i++) {
             if (jsonObjects.get(i).substring(11, 12).equals(Long.toString(id))) {
@@ -191,5 +191,6 @@ public class HelperFunctions {
         }
         return jsonObjects;
     }
+
 
 }
