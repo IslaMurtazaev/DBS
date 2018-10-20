@@ -6,31 +6,26 @@ import main.mocks.Pet;
 
 public class UsageExample {
     public static void main(String[] args) {
-
-        Person harry = new Person("Harry", "Potter", true);
-        Person ron = new Person("Ronald", "Weasley", true);
-        Person hermione = new Person("Hermione", "Granger", true);
-        Person navil = new Person("Navil", "Longbuttom", false);
-
         DB_Manager db_manager = new DB_Manager();
 
-        db_manager.save(harry);
-        db_manager.save(ron);
-        db_manager.save(hermione);
+        Person harry = (Person) db_manager.save(new Person("Harry", "Potter", true));
+        Person ron = (Person) db_manager.save(new Person("Ronald", "Weasley", true));
+        Person hermione = (Person) db_manager.save(new Person("Hermione", "Granger", true));
+        Person navil = (Person) db_manager.save(new Person("Navil", "Longbuttom", false));
 
-        Person theBoyWhoLived = (Person) db_manager.retrieve(1, new Person());
-        System.out.println("The one who survived the killing curse "+ theBoyWhoLived);
+        Person theBoyWhoLived = (Person) db_manager.get(harry.getId(), new Person());
+        System.out.println(theBoyWhoLived);
 
-        Pet hedwig = new Pet(1, "Hedwig", "Owl");
-        Pet scabbers = new Pet(2, "Scabbers", "Rat");
 
-        db_manager.save(hedwig);
-        System.out.println(db_manager.retrieve(hedwig.getId(), new Pet()));
+        Pet hedwig = (Pet) db_manager.save(new Pet(harry.getId(), "Hedwig", "Owl"));
+        Pet scabbers = (Pet) db_manager.save(new Pet(ron.getId(), "Scabbers", "Rat"));
 
-        db_manager.delete(4, new Person());
+        System.out.println(db_manager.get(hedwig.getId(), new Pet()));
+
+        db_manager.delete(navil.getId(), new Person());
 
         hermione.setLastName("Weasley");
-        db_manager.update(3, hermione);
+        db_manager.update(hermione.getId(), hermione);
 
         System.out.println(hedwig.get(new Person()));
         System.out.println(scabbers.get(new Person()));

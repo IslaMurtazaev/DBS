@@ -2,9 +2,9 @@ package main.interfaces;
 
 public interface Database {
 
-    void save(Savable object);
+    Object save(Savable object);
 
-    Object retrieve(long id, Savable object);
+    Object get(long id, Savable object);
 
     void delete(long id, Savable object);
 

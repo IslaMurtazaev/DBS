@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 
 public class HelperFunctions {
-    public static void saveToJsonFile(Savable objectToSave, String name) {
+    public static Object saveToJsonFile(Savable objectToSave, String name) {
         generateId(objectToSave, name);
 
         String filename = name + ".json";
@@ -24,9 +24,12 @@ public class HelperFunctions {
             PrintWriter out = new PrintWriter(bw)
         ) {
             out.println(json + ",");
+            return objectToSave;
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        return null;
     }
 
 
