@@ -41,7 +41,7 @@ public class HelperFunctions {
             id = 1;
         } else {
             String lastObject = objects.get(objects.size() - 1);
-            Savable savable = (Savable) deserialize(lastObject, objectToSave);
+            Savable savable = (Savable) deserialize(lastObject, objectToSave.getClass());
             id = savable.getId() + 1;
         }
 
@@ -103,8 +103,8 @@ public class HelperFunctions {
     }
 
 
-    public static void saveUpdatedJson(List<String> jsonObjects, Savable object) {
-        String filename = object.recieveFilename() + ".json";
+    public static void saveUpdatedJson(List<String> jsonObjects, Class aClass) {
+        String filename = getClassName(aClass) + ".json";
 
         try (
             FileWriter fw = new FileWriter(filename, true);
@@ -134,8 +134,8 @@ public class HelperFunctions {
     }
 
 
-    public static void deleteFile(Savable object) {
-        String fileName = object.recieveFilename() + ".json";
+    public static void deleteFile(Class aClass) {
+        String fileName = getClassName(aClass) + ".json";
         try {
             File file = new File(fileName);
             file.delete();
@@ -145,24 +145,24 @@ public class HelperFunctions {
     }
 
 
-    public static Object retrieveJsonObject(long id, Savable object) {
-        String className = object.recieveFilename();
+    public static Object retrieveJsonObject(long id, Class aClass) {
+        String className = getClassName(aClass);
         List<String> jsonObjects = getObjects(className);
 
         String target = getJsonById(id, jsonObjects);
 
-        Object jsonObject = deserialize(target, object);
+        Object jsonObject = deserialize(target, aClass);
         return jsonObject;
     }
 
 
-    public static Object deserialize(String json, Savable object) {
+    public static Object deserialize(String json, Class aClass) {
         ObjectMapper mapper = new ObjectMapper();
 
         Object deserializedObject = null;
 
         try {
-            deserializedObject = mapper.readValue(json, object.getClass());
+            deserializedObject = mapper.readValue(json, aClass);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -182,8 +182,8 @@ public class HelperFunctions {
     }
 
 
-    public static List<String> deleteJsonObject(long id, Savable object){
-        String className = object.recieveFilename();
+    public static List<String> deleteJsonObject(long id, Class aClass){
+        String className = getClassName(aClass);
         List<String> jsonObjects = HelperFunctions.getObjects(className);
 
         for (int i = 0; i < jsonObjects.size(); i++) {
@@ -195,5 +195,9 @@ public class HelperFunctions {
         return jsonObjects;
     }
 
-
+    public static String getClassName(Class aClass) {
+        String[] reference = (aClass + "").split("\\.");
+        String className = reference[reference.length - 1];
+        return className;
+    }
 }

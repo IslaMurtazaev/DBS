@@ -17,7 +17,7 @@ public abstract class Savable {
         this.id = id;
     }
 
-    public String recieveFilename() {
+    final public String recieveFilename() {
         String[] reference = (this.getClass() + "").split("\\.");
         String className = reference[reference.length - 1];
         return className;
@@ -33,7 +33,7 @@ public abstract class Savable {
             f.setAccessible(true);
             long fieldId = (long) f.get(this);
 
-            return deserialize(getJsonById(fieldId, getObjects(filename)), object);
+            return deserialize(getJsonById(fieldId, getObjects(filename)), object.getClass());
 
         } catch (Exception ex) {
             ex.printStackTrace();
