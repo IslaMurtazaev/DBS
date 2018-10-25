@@ -1,5 +1,7 @@
 package main.interfaces;
 
+import java.util.List;
+
 public interface Database {
 
     Object save(Savable object);
@@ -9,4 +11,6 @@ public interface Database {
     void delete(long id, Class aClass);
 
     void update(long id, Savable object);
+
+    List findAll(Class aClass);
 }

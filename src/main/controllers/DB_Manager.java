@@ -5,8 +5,7 @@ import java.util.List;
 import main.interfaces.Database;
 import main.interfaces.Savable;
 
-import static main.controllers.HelperFunctions.getClassName;
-import static main.controllers.HelperFunctions.saveToJsonFile;
+import static main.controllers.HelperFunctions.*;
 
 public class DB_Manager implements Database {
     @Override
@@ -40,5 +39,11 @@ public class DB_Manager implements Database {
         HelperFunctions.deleteFile(object.getClass());
         HelperFunctions.saveUpdatedJson(updatedJsonArray, object.getClass());
         System.out.println("Object was successfully updated!");
+    }
+
+    @Override
+    public List findAll(Class aClass) {
+        List<String> jsonObjects = getObjects(aClass);
+        return deserializeList(jsonObjects, aClass);
     }
 }

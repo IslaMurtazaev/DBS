@@ -34,7 +34,7 @@ public class HelperFunctions {
 
 
     private static void generateId(Savable objectToSave, String name) {
-        List<String> objects = getObjects(name);
+        List<String> objects = getObjects(objectToSave.getClass());
 
         long id;
         if (objects.isEmpty()) {
@@ -64,8 +64,9 @@ public class HelperFunctions {
     }
 
 
-    public static List<String> getObjects(String name) {
-        String filename = name + ".json";
+    public static List<String> getObjects(Class aClass) {
+        String className = getClassName(aClass);
+        String filename = className + ".json";
         StringBuilder fileContent = new StringBuilder();
 
         try {
@@ -121,8 +122,7 @@ public class HelperFunctions {
 
 
     public static List<String> updateJsonObject(long id, Savable object) {
-        String className = object.recieveFilename();
-        List<String> jsonObjects = getObjects(className);
+        List<String> jsonObjects = getObjects(object.getClass());
         for (int i = 0; i < jsonObjects.size(); i++) {
             if (jsonObjects.get(i).substring(11, 12).equals(Long.toString(id))) {
                 jsonObjects.set(i, convertToJson(object));
@@ -146,8 +146,7 @@ public class HelperFunctions {
 
 
     public static Object retrieveJsonObject(long id, Class aClass) {
-        String className = getClassName(aClass);
-        List<String> jsonObjects = getObjects(className);
+        List<String> jsonObjects = getObjects(aClass);
 
         String target = getJsonById(id, jsonObjects);
 
@@ -171,6 +170,17 @@ public class HelperFunctions {
     }
 
 
+    public static List deserializeList(List<String> jsonObjects, Class aClass) {
+        List<Object> deserializedObjects = new ArrayList<>();
+
+        for (String jsonObject : jsonObjects) {
+            deserializedObjects.add(deserialize(jsonObject, aClass));
+        }
+
+        return deserializedObjects;
+    }
+
+
     public static String getJsonById(long id, List<String> jsonObjects) {
         String target = "";
         for (int i = 0; i < jsonObjects.size(); i++) {
@@ -183,8 +193,7 @@ public class HelperFunctions {
 
 
     public static List<String> deleteJsonObject(long id, Class aClass){
-        String className = getClassName(aClass);
-        List<String> jsonObjects = HelperFunctions.getObjects(className);
+        List<String> jsonObjects = HelperFunctions.getObjects(aClass);
 
         for (int i = 0; i < jsonObjects.size(); i++) {
             if (jsonObjects.get(i).substring(11,12).equals(Long.toString(id))) {

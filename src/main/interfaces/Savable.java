@@ -33,7 +33,7 @@ public abstract class Savable {
             f.setAccessible(true);
             long fieldId = (long) f.get(this);
 
-            return deserialize(getJsonById(fieldId, getObjects(filename)), object.getClass());
+            return deserialize(getJsonById(fieldId, getObjects(object.getClass())), object.getClass());
 
         } catch (Exception ex) {
             ex.printStackTrace();

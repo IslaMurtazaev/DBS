@@ -4,6 +4,8 @@ import main.controllers.DB_Manager;
 import main.mocks.Person;
 import main.mocks.Pet;
 
+import java.util.ArrayList;
+
 public class UsageExample {
     public static void main(String[] args) {
         DB_Manager db_manager = new DB_Manager();
@@ -29,5 +31,8 @@ public class UsageExample {
 
         System.out.println(hedwig.get(new Person()));
         System.out.println(scabbers.get(new Person()));
+
+        ArrayList<Object> hogwartsGuys = (ArrayList<Object>) db_manager.findAll(Person.class);
+        System.out.println(hogwartsGuys);
     }
 }
