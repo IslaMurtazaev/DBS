@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import main.interfaces.Savable;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class HelperFunctions {
@@ -82,12 +82,12 @@ public class HelperFunctions {
             return new ArrayList<>();
         }
 
-        List<String> jsonObjects = splitJson(fileContent.toString());
+        List<String> jsonObjects = splitJsonList(fileContent.toString());
         return jsonObjects;
     }
 
 
-    private static List<String> splitJson(String text) {
+    private static List<String> splitJsonList(String text) {
         List<String> jsonObjects = new ArrayList();
         int open = 0;
         int close = 0;
@@ -183,24 +183,39 @@ public class HelperFunctions {
 
     public static String getJsonById(long id, List<String> jsonObjects) {
         String target = "";
-        for (int i = 0; i < jsonObjects.size(); i++) {
-            if (jsonObjects.get(i).substring(11, 12).equals(Long.toString(id))) {
-                target = jsonObjects.get(i);
-            }
+
+        for (String json : jsonObjects) {
+            if (getJsonId(json) == id)
+                target = json;
         }
+
         return target;
+    }
+
+
+    private static long getJsonId(String json) {
+        Pattern p = Pattern.compile("\"id\" : -?\\d+");
+        Matcher m = p.matcher(json);
+
+        long id = 0;
+        if (m.find()) {
+            id = Long.valueOf(m.group().split(" : ")[1]);
+        }
+
+        return id;
     }
 
 
     public static List<String> deleteJsonObject(long id, Class aClass){
         List<String> jsonObjects = HelperFunctions.getObjects(aClass);
 
-        for (int i = 0; i < jsonObjects.size(); i++) {
-            if (jsonObjects.get(i).substring(11,12).equals(Long.toString(id))) {
-                jsonObjects.remove(i);
+        for (String json : jsonObjects) {
+            if (getJsonId(json) == id) {
+                jsonObjects.remove(json);
                 break;
             }
         }
+
         return jsonObjects;
     }
 
