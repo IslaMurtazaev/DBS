@@ -1,6 +1,0 @@
-1) You must have "database" folder in you project root.
-2) When you create java object, you should not get id for it. Program automatically generates that id field.
-3) For using our database program, you should import "DB_Manager" fro "main/controllers"
-4) Program will save data in "database" folder, which must be in your project root
-5) Our program has 4 basic methods: (CRUD) -> create, retrieve(get), update, delete
-6) If you don't understand how to use it, you can see some examples in "main/UsageExample" class

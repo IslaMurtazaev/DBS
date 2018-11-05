@@ -13,6 +13,14 @@ Inside of project's root folder type:
 mvn install
 ```
 
+## Instructions 
+
+1. You must have ``database`` folder in you project root.
+1. When you create java object, you don't have to set id. Program automatically generates it for you.
+1. For using our database program, you should import ``DB_Manager.java`` from ``main/controllers``.
+1. Program will save data in ``database`` folder, which was created in step 1.
+1. ``DB_Manager.java`` has 4 basic methods: (CRUD) -> create/insert, get, update, delete.
+
 ## Usage
 
 We recommend you to follow these steps:
