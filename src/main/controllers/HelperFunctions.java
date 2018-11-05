@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 
 public class HelperFunctions {
-    public static Object saveToJsonFile(Savable objectToSave, String name) {
+    static Object saveToJsonFile(Savable objectToSave, String name) {
         generateId(objectToSave, name);
 
         String filename = name + ".json";
@@ -104,7 +104,7 @@ public class HelperFunctions {
     }
 
 
-    public static void saveUpdatedJson(List<String> jsonObjects, Class aClass) {
+    static void saveUpdatedJson(List<String> jsonObjects, Class aClass) {
         String filename = getClassName(aClass) + ".json";
 
         try (
@@ -121,7 +121,7 @@ public class HelperFunctions {
     }
 
 
-    public static List<String> updateJsonObject(long id, Savable object) {
+    static List<String> updateJsonObject(long id, Savable object) {
         List<String> jsonObjects = getObjects(object.getClass());
         for (int i = 0; i < jsonObjects.size(); i++) {
             if (jsonObjects.get(i).substring(11, 12).equals(Long.toString(id))) {
@@ -134,7 +134,7 @@ public class HelperFunctions {
     }
 
 
-    public static void deleteFile(Class aClass) {
+    static void deleteFile(Class aClass) {
         String fileName = getClassName(aClass) + ".json";
         try {
             File file = new File(fileName);
@@ -145,7 +145,7 @@ public class HelperFunctions {
     }
 
 
-    public static Object retrieveJsonObject(long id, Class aClass) {
+    static Object retrieveJsonObject(long id, Class aClass) {
         List<String> jsonObjects = getObjects(aClass);
 
         String target = getJsonById(id, jsonObjects);
@@ -170,7 +170,7 @@ public class HelperFunctions {
     }
 
 
-    public static List deserializeList(List<String> jsonObjects, Class aClass) {
+    static List deserializeList(List<String> jsonObjects, Class aClass) {
         List<Object> deserializedObjects = new ArrayList<>();
 
         for (String jsonObject : jsonObjects) {
@@ -206,7 +206,7 @@ public class HelperFunctions {
     }
 
 
-    public static List<String> deleteJsonObject(long id, Class aClass){
+    static List<String> deleteJsonObject(long id, Class aClass){
         List<String> jsonObjects = HelperFunctions.getObjects(aClass);
 
         for (String json : jsonObjects) {
@@ -219,7 +219,7 @@ public class HelperFunctions {
         return jsonObjects;
     }
 
-    public static String getClassName(Class aClass) {
+    static String getClassName(Class aClass) {
         String[] reference = (aClass + "").split("\\.");
         String className = reference[reference.length - 1];
         return className;
