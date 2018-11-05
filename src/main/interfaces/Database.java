@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Database {
 
-    Object save(Savable object);
+    Object insert(Savable object);
 
     Object get(long id, Class aClass);
 

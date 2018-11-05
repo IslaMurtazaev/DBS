@@ -9,7 +9,7 @@ import static main.controllers.HelperFunctions.*;
 
 public class DB_Manager implements Database {
     @Override
-    public Object save(Savable object) {
+    public Object insert(Savable object) {
         String className = getClassName(object.getClass());
         Object ormObject = saveToJsonFile(object, className);
         System.out.println("Object was successfully saved to "+ className +".json");
